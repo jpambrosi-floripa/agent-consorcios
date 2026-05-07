@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.Python
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Project
+.env
+sessions/
+.DS_Store
