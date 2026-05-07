@@ -1,0 +1,404 @@
+{
+  "objections": [
+    {
+      "id": "taxa_administrativa",
+      "category": "financial",
+      "objection": "Qual é a taxa administrativa mensal?",
+      "variações": ["Ouvi dizer que cobram uma taxa bem alta...", "Fiquei preocupado com a taxa administrativa..."],
+      "técnicas_esperadas": ["explicar_competitividade", "comparar_alternativas", "reframing_valor"],
+      "dificuldade": 2
+    },
+    {
+      "id": "rentabilidade_baixa",
+      "category": "financial",
+      "objection": "Mas qual é o retorno esperado? Porque comparando com ações...",
+      "variações": ["Como você justifica esse retorno?", "Investindo em ações eu ganho mais, não é?"],
+      "técnicas_esperadas": ["comparativo_mercado", "diferenciar_produto", "risco_retorno"],
+      "dificuldade": 3
+    },
+    {
+      "id": "liquidez_baixa",
+      "category": "operational",
+      "objection": "E se eu precisar do dinheiro antes do prazo? Como funciona a liquidez?",
+      "variações": ["Não consigo sacar quando quero?", "Fico preso por quanto tempo?"],
+      "técnicas_esperadas": ["explicar_processo", "mostrar_alternativas", "seguranca_vs_liquidez"],
+      "dificuldade": 2
+    },
+    {
+      "id": "prazo_longo",
+      "category": "operational",
+      "objection": "Mas o prazo é muito longo, não é? Quanto tempo leva mesmo?",
+      "variações": ["Vou ficar esperando por anos?", "Isso demora muito..."],
+      "técnicas_esperadas": ["contextualizar_prazo", "comparar_financiamento", "planejamento"],
+      "dificuldade": 2
+    },
+    {
+      "id": "sorteio_incerteza",
+      "category": "behavioral",
+      "objection": "Mas o imóvel é por sorteio, certo? Então eu posso nunca ganhar?",
+      "variações": ["Qual é a chance eu ganhar?", "Não prefiro já comprar um imóvel certo?"],
+      "técnicas_esperadas": ["explicar_sorteio", "mostrar_probabilidades", "seguranca_consorcio"],
+      "dificuldade": 3
+    },
+    {
+      "id": "entrada_inicial_alta",
+      "category": "financial",
+      "objection": "A entrada inicial é muito cara. Você tem algo com entrada menor?",
+      "variações": ["Não tenho grana pra pagar essa entrada agora...", "Qual é a entrada mínima?"],
+      "técnicas_esperadas": ["opcoes_entrada", "financiamento_entrada", "parcelamento"],
+      "dificuldade": 2
+    },
+    {
+      "id": "nao_entende_funcionamento",
+      "category": "behavioral",
+      "objection": "Na verdade, eu não entendi bem como consórcio funciona. Pode explicar de novo?",
+      "variações": ["Ficou confuso, pode ser mais claro?", "Como assim a gente compra junto?"],
+      "técnicas_esperadas": ["explicacao_simples", "analogia", "passo_a_passo"],
+      "dificuldade": 1
+    },
+    {
+      "id": "medo_empresa_fechar",
+      "category": "behavioral",
+      "objection": "E se a empresa falir no meio do consórcio? Onde fica o meu dinheiro?",
+      "variações": ["Qual é a segurança disso?", "Meu dinheiro tá garantido?"],
+      "técnicas_esperadas": ["regulacao", "fundo_garantia", "seguranca_consorcio"],
+      "dificuldade": 3
+    },
+    {
+      "id": "comparacao_financiamento",
+      "category": "comparative",
+      "objection": "Por que não financiar um imóvel? Acho que é mais rápido...",
+      "variações": ["Qual é a diferença mesmo entre consórcio e financiamento?", "Financiamento não é melhor?"],
+      "técnicas_esperadas": ["diferenca_produtos", "taxa_juros", "comparativo_total"],
+      "dificuldade": 3
+    },
+    {
+      "id": "comparacao_poupanca",
+      "category": "comparative",
+      "objection": "Por que não juntar dinheiro na poupança mesmo? É mais seguro...",
+      "variações": ["Poupança não é mais tranquilo?", "Pelo menos lá o dinheiro é meu..."],
+      "técnicas_esperadas": ["rentabilidade_comparativa", "tempo_meta", "disciplina"],
+      "dificuldade": 2
+    },
+    {
+      "id": "timing_mercado_ruim",
+      "category": "market_timing",
+      "objection": "Mas agora não é um bom momento pra comprar imóvel. Acho que vão baixar os preços...",
+      "variações": ["O mercado tá muito caro agora", "Vou esperar a crise passar"],
+      "técnicas_esperadas": ["planejamento_longo_prazo", "beneficio_dollar_cost", "risco_espera"],
+      "dificuldade": 3
+    },
+    {
+      "id": "imovel_especifico",
+      "category": "property_requirements",
+      "objection": "Mas eu quero um imóvel específico em um lugar específico. Como funciona isso?",
+      "variações": ["Tenho preferências muito particulares", "Precisa ser nessa região mesmo"],
+      "técnicas_esperadas": ["opcoes_customizacao", "flexibilidade_localizacao", "timing_sorteio"],
+      "dificuldade": 2
+    },
+    {
+      "id": "caixa_fluxo_apertado",
+      "category": "cash_flow",
+      "objection": "Minhas prestações estão apertadas. Não tenho folga no orçamento pra consórcio...",
+      "variações": ["Tenho outras dívidas pra pagar", "Meu salário é apertado"],
+      "técnicas_esperadas": ["analise_orcamento", "priorizacao", "impacto_financeiro"],
+      "dificuldade": 2
+    },
+    {
+      "id": "medo_nao_ganhar_sorteio",
+      "category": "psychological",
+      "objection": "Meu medo é ficar pagando e não ganhar o imóvel no sorteio. E aí?",
+      "variações": ["Qual a minha chance real?", "Vou perder tudo se não ganhar?"],
+      "técnicas_esperadas": ["probabilidades_reais", "direitos_contemplado", "fundo_reserva"],
+      "dificuldade": 3
+    },
+    {
+      "id": "cotas_muito_caras",
+      "category": "financial",
+      "objection": "As cotas estão muito caras. Você não tem uma mais barata?",
+      "variações": ["Esses valores de cota são muito altos", "Não tem opção mais acessível?"],
+      "técnicas_esperadas": ["portfolio_opcoes", "relacao_valor_imovel", "cotas_disponiveis"],
+      "dificuldade": 2
+    },
+    {
+      "id": "timing_errado",
+      "category": "behavioral",
+      "objection": "Acho que agora não é a hora certa pra mim entrar em um consórcio...",
+      "variações": ["Talvez mais pra frente", "Preciso organizar minhas coisas primeiro"],
+      "técnicas_esperadas": ["urgencia_reasonavel", "beneficio_tempo", "planejamento_futuro"],
+      "dificuldade": 2
+    },
+    {
+      "id": "aluguel_vs_compra",
+      "category": "lifestyle",
+      "objection": "Por que comprar se eu posso alugar? Aluga é mais flexível...",
+      "variações": ["Aluguel me dá liberdade", "Não preciso ficar preso em um imóvel"],
+      "técnicas_esperadas": ["comparacao_custos", "patrimonio_acumulado", "estabilidade"],
+      "dificuldade": 3
+    },
+    {
+      "id": "familia_contra",
+      "category": "family_concerns",
+      "objection": "Meu cônjuge não concorda. Ele acha que consórcio é muito arriscado...",
+      "variações": ["Meu marido/esposa não quer", "Minha família acha arriscado"],
+      "técnicas_esperadas": ["envolver_familia", "esclarecer_medos", "seguranca_regulatoria"],
+      "dificuldade": 3
+    },
+    {
+      "id": "complexidade_docs",
+      "category": "operational",
+      "objection": "Esses documentos pra consórcio são muito complicados. Preciso de lawyer?",
+      "variações": ["Que papelada é essa?", "Entendi nada desses contratos"],
+      "técnicas_esperadas": ["simplificar_processos", "desmistificar", "suporte_juridico"],
+      "dificuldade": 2
+    },
+    {
+      "id": "limitacao_geografica",
+      "category": "property_requirements",
+      "objection": "Vocês só têm imóveis em certos lugares? E se eu quiser em outro estado?",
+      "variações": ["Não tem essa coisa em Curitiba?", "Eu precisa de outro lugar"],
+      "técnicas_esperadas": ["cobertura_geografica", "opcoes_parcerias", "expansao_futura"],
+      "dificuldade": 2
+    },
+    {
+      "id": "parceiro_desacordo",
+      "category": "family_concerns",
+      "objection": "Meu sócio/parceiro não quer entrar em consórcio comigo...",
+      "variações": ["Meu companheiro de negócio discorda", "A gente tem opiniões diferentes"],
+      "técnicas_esperadas": ["alinhamento_expectativas", "apresentacao_dados", "negociacao"],
+      "dificuldade": 2
+    },
+    {
+      "id": "recessao_economica",
+      "category": "market_timing",
+      "objection": "Com essa recessão econômica, agora não é hora de comprar nada...",
+      "variações": ["A economia tá ruim", "Vou esperar melhorar"],
+      "técnicas_esperadas": ["historico_ciclos", "protecao_consorcio", "oportunidade"],
+      "dificuldade": 3
+    },
+    {
+      "id": "taxa_juros_financiamento",
+      "category": "comparative",
+      "objection": "As taxas de financiamento caíram. Agora fico com dúvida entre financiamento e consórcio...",
+      "variações": ["Financiamento tá mais barato", "Por que não fazer financiamento direto?"],
+      "técnicas_esperadas": ["análise_custo_total", "taxa_juros_comparativa", "rentabilidade"],
+      "dificuldade": 3
+    },
+    {
+      "id": "historico_credito",
+      "category": "operational",
+      "objection": "Tenho alguns problemas no meu histórico de crédito. Posso entrar mesmo assim?",
+      "variações": ["Tenho nome sujo", "Meu histórico não tá tão limpo"],
+      "técnicas_esperadas": ["criterios_admissao", "possibilidades", "alternativas"],
+      "dificuldade": 2
+    },
+    {
+      "id": "imagem_publica",
+      "category": "behavioral",
+      "objection": "Consórcio tem uma reputação ruim. As pessoas acham que é golpe...",
+      "variações": ["Meus amigos falaram mal de consórcio", "Vi histórias ruim na internet"],
+      "técnicas_esperadas": ["educacao_mercado", "regularizacao", "depoimentos"],
+      "dificuldade": 3
+    },
+    {
+      "id": "falta_conhecimento",
+      "category": "behavioral",
+      "objection": "Eu não conheço ninguém que tenha consórcio. Como eu vou saber se tá tudo certo?",
+      "variações": ["Ninguém que conheço faz isso", "É muito diferente do que conheço"],
+      "técnicas_esperadas": ["referencias", "cases_sucesso", "educacao"],
+      "dificuldade": 2
+    },
+    {
+      "id": "risco_sorteio_baixo",
+      "category": "psychological",
+      "objection": "A chance de ganhar no sorteio é muito baixa. Não vale a pena...",
+      "variações": ["Preciso calcular melhor", "Qual é a probabilidade mesmo?"],
+      "técnicas_esperadas": ["probabilidades", "analise_estatistica", "outros_contemplados"],
+      "dificuldade": 2
+    },
+    {
+      "id": "inflacao_afeta",
+      "category": "market_timing",
+      "objection": "Com essa inflação alta, fico com medo que o meu poder de compra caia...",
+      "variações": ["A inflação tá comendo meu dinheiro", "O consórcio protege de inflação?"],
+      "técnicas_esperadas": ["hedging_inflacao", "proteção_patrimonio", "analise_economia"],
+      "dificuldade": 3
+    },
+    {
+      "id": "despesas_adicionais",
+      "category": "financial",
+      "objection": "Além da cota, tem outras despesas? Quanto sai tudo junto?",
+      "variações": ["Qual é o custo total?", "Tem taxas escondidas?"],
+      "técnicas_esperadas": ["transparencia_custos", "desagregacao", "comparativo"],
+      "dificuldade": 2
+    },
+    {
+      "id": "imagem_obra",
+      "category": "property_requirements",
+      "objection": "Vocês só vendem imóvel pronto ou tem que acompanhar a obra?",
+      "variações": ["Tenho medo da qualidade", "Como sei que fica bom?"],
+      "técnicas_esperadas": ["acompanhamento_obra", "garantias", "documentacao"],
+      "dificuldade": 2
+    },
+    {
+      "id": "tamanho_imovel_errado",
+      "category": "property_requirements",
+      "objection": "Os imóveis do consórcio não têm o tamanho que eu preciso...",
+      "variações": ["Preciso de mais quartos", "Isso é muito pequeno"],
+      "técnicas_esperadas": ["variedade_tipos", "customizacao", "alternativas"],
+      "dificuldade": 2
+    },
+    {
+      "id": "imposto_propriedade",
+      "category": "financial",
+      "objection": "Depois que ganho, tem imposto? Quanto custa manter?",
+      "variações": ["Qual é o IPTU?", "Tem outras taxas depois?"],
+      "técnicas_esperadas": ["custos_propriedade", "impostos", "manutencao"],
+      "dificuldade": 2
+    },
+    {
+      "id": "compra_dinheiro_vivo",
+      "category": "comparative",
+      "objection": "Eu tô juntando dinheiro pra comprar à vista. Consórcio é melhor que isso?",
+      "variações": ["Vou comprar sem financiar nada", "Não preciso de consórcio"],
+      "técnicas_esperadas": ["oportunidade_custo", "tempo_objetivo", "aplicacoes"],
+      "dificuldade": 2
+    },
+    {
+      "id": "mudanca_planos",
+      "category": "behavioral",
+      "objection": "E se meus planos mudarem? Posso sair do consórcio?",
+      "variações": ["E se eu mudar de ideia?", "Como desisto sem perder tudo?"],
+      "técnicas_esperadas": ["flexibilidade", "regras_saida", "transferencia"],
+      "dificuldade": 2
+    },
+    {
+      "id": "falta_tempo_avaliar",
+      "category": "behavioral",
+      "objection": "Não tenho tempo agora pra avaliar tudo isso. Deixa eu pensar melhor...",
+      "variações": ["Preciso refletir mais", "Vou pesquisar depois"],
+      "técnicas_esperadas": ["timeline_decisao", "materiais_estudo", "acompanhamento"],
+      "dificuldade": 1
+    },
+    {
+      "id": "preço_imovel_sobe",
+      "category": "market_timing",
+      "objection": "E se o preço dos imóveis subir muito? Não vou estar atrasado?",
+      "variações": ["Os preços podem subir", "Vou ficar devendo mais"],
+      "técnicas_esperadas": ["tendencias_mercado", "valor_fixo", "proteção"],
+      "dificuldade": 2
+    },
+    {
+      "id": "medo_competidor",
+      "category": "comparative",
+      "objection": "Por que eu deveria escolher seu consórcio e não outro?",
+      "variações": ["Qual é a diferença de vocês?", "Tem outro mais barato?"],
+      "técnicas_esperadas": ["diferencial_competitivo", "proposição_valor", "benchmarking"],
+      "dificuldade": 2
+    },
+    {
+      "id": "localizacao_futura",
+      "category": "property_requirements",
+      "objection": "Não sei ainda onde quero morar. Isso vai ficar muito tempo contemplado?",
+      "variações": ["Meus planos ainda não tão definidos", "Pode mudar aonde eu quero ir"],
+      "técnicas_esperadas": ["flexibilidade_localizacao", "opcoes_espera", "prazo"],
+      "dificuldade": 2
+    },
+    {
+      "id": "contribuicao_extra",
+      "category": "financial",
+      "objection": "Além de pagar a cota, precisa contribuir pra cotas de outros?",
+      "variações": ["Como funciona essas contribuições?", "Tenho que pagar por mais alguém?"],
+      "técnicas_esperadas": ["funcionamento_sorteio", "solidariedade", "custos_reais"],
+      "dificuldade": 2
+    },
+    {
+      "id": "heranca_planejamento",
+      "category": "family_concerns",
+      "objection": "Como funciona se algo acontecer comigo? O consórcio passa pra minha família?",
+      "variações": ["E se eu morrer?", "Meus herdeiros herdam o consórcio?"],
+      "técnicas_esperadas": ["direitos_sucessao", "protecao_familia", "documentacao"],
+      "dificuldade": 3
+    },
+    {
+      "id": "trabalho_autonomo",
+      "category": "operational",
+      "objection": "Meu trabalho é autônomo e meu ganho não é estável. Posso conseguir consórcio?",
+      "variações": ["Meu salário varia", "Tenho dificuldade de comprovar renda"],
+      "técnicas_esperadas": ["criterios_renda", "documentacao_autonomo", "alternativas"],
+      "dificuldade": 2
+    },
+    {
+      "id": "estrangeiro_residente",
+      "category": "operational",
+      "objection": "Sou estrangeiro/residente. Tenho limitações pra comprar imóvel?",
+      "variações": ["Não tenho CPF", "Meu visto é temporário"],
+      "técnicas_esperadas": ["restricoes_legais", "documentacao", "possibilidades"],
+      "dificuldade": 2
+    },
+    {
+      "id": "imovel_investimento",
+      "category": "behavioral",
+      "objection": "Vou usar como investimento/aluguel. Consórcio é bom pra isso?",
+      "variações": ["Quero comprar pra alugar", "Vai dar rentabilidade?"],
+      "técnicas_esperadas": ["analise_investimento", "fluxo_aluguel", "roi"],
+      "dificuldade": 3
+    },
+    {
+      "id": "reforma_imovel",
+      "category": "property_requirements",
+      "objection": "Preciso reformar o imóvel. O consórcio cobre despesas de reforma?",
+      "variações": ["Quero customizar o imóvel", "Precisa de obra depois"],
+      "técnicas_esperadas": ["reforma_posterior", "custos_adicionais", "planejamento"],
+      "dificuldade": 2
+    },
+    {
+      "id": "taxa_carencia",
+      "category": "operational",
+      "objection": "Ouvi falar em carência do consórcio. Como é isso?",
+      "variações": ["Qual é o período de carência?", "Preciso esperar pra ficar elegível?"],
+      "técnicas_esperadas": ["explicar_carencia", "tempo_contemplacao", "regras"],
+      "dificuldade": 2
+    },
+    {
+      "id": "financiamento_cota",
+      "category": "financial",
+      "objection": "Posso financiar a cota do consórcio? Qual é o juro?",
+      "variações": ["Preciso parcelar a cota", "Qual a taxa de juro?"],
+      "técnicas_esperadas": ["opcoes_financiamento", "taxa_juros", "comparativo"],
+      "dificuldade": 2
+    },
+    {
+      "id": "seguro_imovel",
+      "category": "operational",
+      "objection": "O consórcio inclui seguro do imóvel ou precisa pagar separado?",
+      "variações": ["Tem cobertura de sinistro?", "Quanto custa o seguro?"],
+      "técnicas_esperadas": ["cobertura_seguro", "custos", "obrigatoriedade"],
+      "dificuldade": 2
+    },
+    {
+      "id": "prioridade_sorteio",
+      "category": "behavioral",
+      "objection": "Como funciona a prioridade no sorteio? É realmente aleatório?",
+      "variações": ["Tem favoritos?", "O sorteio é justo mesmo?"],
+      "técnicas_esperadas": ["transparencia_sorteio", "regularizacao", "mecanismo"],
+      "dificuldade": 2
+    },
+    {
+      "id": "experiencia_vendedor",
+      "category": "behavioral",
+      "objection": "Você já vendeu muitos consórcios? Qual é sua experiência?",
+      "variações": ["Isso é seu primeiro consórcio?", "Quantos clientes você tem?"],
+      "técnicas_esperadas": ["credibilidade", "track_record", "casos_sucesso"],
+      "dificuldade": 1
+    },
+    {
+      "id": "credio_habitacional",
+      "category": "comparative",
+      "objection": "Por que não usar o crédito imobiliário de um banco? É mais fácil...",
+      "variações": ["O banco oferece crédito melhor", "Vou procurar no banco"],
+      "técnicas_esperadas": ["taxa_comparativa", "juros", "diferencial"],
+      "dificuldade": 3
+    }
+  ]
+}
