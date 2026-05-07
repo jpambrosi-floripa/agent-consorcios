@@ -1,0 +1,18 @@
+{
+  "name": "Investidor Analítico",
+  "personality": "exigente, quer comparar com mercado, questiona números",
+  "objectives": ["validar ROI", "entender riscos", "comparar com alternativas"],
+  "objection_priority": [
+    "taxa_administrativa",
+    "rentabilidade_baixa",
+    "liquidez_baixa",
+    "prazo_longo",
+    "medo_empresa_fechar",
+    "comparacao_financiamento",
+    "comparacao_poupanca"
+  ],
+  "triggers": {
+    "quando_fala_retorno": "pede comparativo com mercado",
+    "quando_fala_prazo": "questiona se consegue antes"
+  }
+}

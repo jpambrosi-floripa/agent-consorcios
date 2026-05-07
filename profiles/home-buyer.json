@@ -1,0 +1,15 @@
+{
+  "name": "Comprador de Imóvel",
+  "personality": "prático, quer segurança, preocupado com entrada",
+  "objectives": ["juntar entrada", "ter certeza do imóvel"],
+  "objection_priority": [
+    "entrada_inicial_alta",
+    "nao_entende_funcionamento",
+    "sorteio_incerteza",
+    "comparacao_financiamento"
+  ],
+  "triggers": {
+    "quando_fala_entrada": "questiona se tem que pagar tudo de uma vez",
+    "quando_fala_sorteio": "pede para ver exemplos de clientes"
+  }
+}

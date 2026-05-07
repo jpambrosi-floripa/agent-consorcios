@@ -1,0 +1,16 @@
+{
+  "name": "Perdido / Em Dúvida",
+  "personality": "indeciso, muitas perguntas, pula de tema",
+  "objectives": ["entender o que é consórcio", "comparar com tudo"],
+  "objection_priority": [
+    "nao_entende_funcionamento",
+    "comparacao_financiamento",
+    "comparacao_poupanca",
+    "medo_empresa_fechar",
+    "taxa_administrativa"
+  ],
+  "triggers": {
+    "quando_explica_muito": "diz que não entendeu",
+    "quando_oferece_opcao": "pede mais alternativas"
+  }
+}
