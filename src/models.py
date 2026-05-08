@@ -54,3 +54,7 @@ class Report(BaseModel):
     score: float
     techniques: List[str]
     recommendations: List[str]
+    objection_analyses: List[Dict] = []
+    behavioral_patterns: Dict = {}
+    priority_improvements: List[str] = []
+    spin_recommendations: List[Dict] = []
