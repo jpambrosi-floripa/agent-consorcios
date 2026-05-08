@@ -158,6 +158,10 @@ def nova(
             if techniques:
                 console.print(f"[cyan]Techniques detected: {', '.join(techniques)}[/cyan]")
 
+            hint = eval_result.get("hint", "")
+            if hint:
+                console.print(f"\n[bold yellow]Dica:[/bold yellow] [yellow]{hint}[/yellow]")
+
             if objection_count < max_objections:
                 if not Confirm.ask("\nContinue to next objection?"):
                     console.print("\n[yellow]Session ended by user[/yellow]")

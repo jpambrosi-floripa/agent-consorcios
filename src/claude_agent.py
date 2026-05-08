@@ -5,7 +5,7 @@ import anthropic
 class ClaudeAgent:
     def __init__(self, api_key: str):
         self.client = anthropic.Anthropic(api_key=api_key)
-        self.model = "claude-3-5-sonnet-20241022"
+        self.model = "claude-haiku-4-5-20251001"
 
     def _build_system_prompt(self, profile: Profile) -> str:
         return f"""You are a real potential client interested in buying a consortium (consórcio imobiliário).
@@ -22,6 +22,7 @@ INSTRUCTIONS:
 - Ask questions and raise concerns/objections
 - Be conversational and genuine
 - Don't sound robotic or scripted
+- Keep your response SHORT: 2-3 sentences maximum. Real conversations are concise.
 - If the seller answers well, acknowledge it and move on
 - If they don't answer well, press or redirect
 """
@@ -65,7 +66,7 @@ Your response:"""
 
         message = self.client.messages.create(
             model=self.model,
-            max_tokens=300,
+            max_tokens=120,
             system=system,
             messages=[
                 {"role": "user", "content": user_prompt}
