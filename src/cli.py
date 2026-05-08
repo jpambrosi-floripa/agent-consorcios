@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
 import os
+import webbrowser
 from datetime import datetime
+from pathlib import Path
 from typing import Optional
 import typer
 from rich.console import Console
@@ -304,54 +306,16 @@ def relatorio(session_id: str = typer.Argument(..., help="Session ID to generate
             console.print(f"[red]Session '{session_id}' not found[/red]")
             raise typer.Exit(code=1)
 
-        report = report_gen.generate(session)
+        objection_bank = managers["objection_bank"]
+        report = report_gen.generate(session, objection_bank)
 
-        console.print()
-        console.print(f"[bold cyan]═══════════════════════════════════[/bold cyan]")
-        console.print(f"[bold cyan]PERFORMANCE REPORT[/bold cyan]")
-        console.print(f"[bold cyan]═══════════════════════════════════[/bold cyan]\n")
-
-        console.print(f"[bold]Session:[/bold] {report.session_id}")
-        console.print(f"[bold]Profile:[/bold] {report.profile}")
-        console.print(f"[bold]Duration:[/bold] {report.duration} minutes")
-        console.print(f"[bold]Date:[/bold] {session.created_at.strftime('%Y-%m-%d %H:%M:%S')}\n")
-
-        metrics_table = Table(title="Objection Results", show_header=True, header_style="bold cyan")
-        metrics_table.add_column("Metric", style="cyan")
-        metrics_table.add_column("Value", style="magenta")
-
-        metrics_table.add_row("Total Objections", str(report.total_objections))
-        metrics_table.add_row("[green]Overcome[/green]", f"{report.overcome} ({report.score:.1f}%)")
-        metrics_table.add_row("[red]Not Overcome[/red]", str(report.not_overcome))
-        metrics_table.add_row("[bold yellow]Score[/bold yellow]", f"{report.score:.1f}%")
-
-        console.print(metrics_table)
-        console.print()
-
-        if report.techniques:
-            console.print("[bold]Techniques Detected:[/bold]")
-            for tech in report.techniques:
-                console.print(f"  • {tech}")
-            console.print()
-
-        if report.recommendations:
-            console.print("[bold]Recommendations:[/bold]")
-            for rec in report.recommendations:
-                console.print(f"  • {rec}")
-            console.print()
-
-        console.print("[bold]Objection Details:[/bold]")
-        objections_table = Table(show_header=True, header_style="bold cyan")
-        objections_table.add_column("Order", style="cyan")
-        objections_table.add_column("ID", style="cyan")
-        objections_table.add_column("Status", style="magenta")
-
-        for obj in session.objections_used:
-            status_str = "[green]Overcome[/green]" if obj.status == "contornada" else "[red]Not Overcome[/red]"
-            objections_table.add_row(str(obj.order), obj.id, status_str)
-
-        console.print(objections_table)
-        console.print()
+        html = report_gen.render_html(report)
+        Path("reports").mkdir(exist_ok=True)
+        html_path = Path("reports") / f"{session.id}.html"
+        html_path.write_text(html, encoding="utf-8")
+        webbrowser.open(html_path.resolve().as_uri())
+        console.print(f"\n[bold green]Relatório aberto no browser:[/bold green] {html_path}")
+        console.print(f"[dim]Score: {report.score:.1f}% ({report.overcome}/{report.total_objections} contornadas)[/dim]\n")
 
     except Exception as e:
         console.print(f"[red]Error generating report: {e}[/red]")
