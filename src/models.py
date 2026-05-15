@@ -58,3 +58,4 @@ class Report(BaseModel):
     behavioral_patterns: Dict = {}
     priority_improvements: List[str] = []
     spin_recommendations: List[Dict] = []
+    llm_analysis: Dict = {}

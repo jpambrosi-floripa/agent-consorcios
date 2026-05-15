@@ -139,7 +139,7 @@ def nova(
             )
             session.messages.append(vendor_msg)
 
-            eval_result = evaluator.evaluate_response(vendor_response, objection)
+            eval_result = evaluator.evaluate_response(vendor_response, objection, conversation_history=session.messages, agent=agent)
             overcome = eval_result["overcome"]
 
             status = "contornada" if overcome else "não_contornada"
@@ -256,7 +256,7 @@ def retomar(session_id: str = typer.Argument(..., help="Session ID to resume")):
             )
             session.messages.append(vendor_msg)
 
-            eval_result = evaluator.evaluate_response(vendor_response, objection)
+            eval_result = evaluator.evaluate_response(vendor_response, objection, conversation_history=session.messages, agent=agent)
             overcome = eval_result["overcome"]
 
             status = "contornada" if overcome else "não_contornada"
@@ -294,20 +294,60 @@ def retomar(session_id: str = typer.Argument(..., help="Session ID to resume")):
 
 
 @app.command()
-def relatorio(session_id: str = typer.Argument(..., help="Session ID to generate report for")):
+def relatorio(session_id: Optional[str] = typer.Argument(None, help="Session ID (optional — omit to choose interactively)")):
     """View performance report for a session."""
     try:
         managers = get_managers()
         session_mgr = managers["session_mgr"]
         report_gen = managers["report_gen"]
-
-        session = session_mgr.load_session(session_id)
-        if not session:
-            console.print(f"[red]Session '{session_id}' not found[/red]")
-            raise typer.Exit(code=1)
-
         objection_bank = managers["objection_bank"]
-        report = report_gen.generate(session, objection_bank)
+        agent = managers["agent"]
+
+        if not session_id:
+            all_sessions = session_mgr.list_sessions()
+            if not all_sessions:
+                console.print("[red]Nenhuma sessão encontrada.[/red]")
+                raise typer.Exit(code=1)
+
+            all_sessions.sort(key=lambda s: s.created_at, reverse=True)
+
+            table = Table(title="Sessões disponíveis", show_header=True, header_style="bold cyan")
+            table.add_column("#", style="bold", width=4)
+            table.add_column("Session ID", style="cyan")
+            table.add_column("Perfil", style="magenta")
+            table.add_column("Data", style="dim")
+            table.add_column("Objeções", justify="right")
+
+            for i, s in enumerate(all_sessions, 1):
+                total = len(s.objections_used)
+                overcome = sum(1 for o in s.objections_used if o.status == "contornada")
+                table.add_row(
+                    str(i),
+                    s.id,
+                    s.profile,
+                    s.created_at.strftime("%d/%m %H:%M"),
+                    f"{overcome}/{total}" if total else "0",
+                )
+
+            console.print()
+            console.print(table)
+            choice = Prompt.ask(f"\nEscolha uma sessão [1-{len(all_sessions)}]")
+            try:
+                idx = int(choice) - 1
+                if idx < 0 or idx >= len(all_sessions):
+                    raise ValueError
+                session = all_sessions[idx]
+            except ValueError:
+                console.print("[red]Escolha inválida.[/red]")
+                raise typer.Exit(code=1)
+        else:
+            session = session_mgr.load_session(session_id)
+            if not session:
+                console.print(f"[red]Session '{session_id}' not found[/red]")
+                raise typer.Exit(code=1)
+
+        console.print(f"\n[dim]Gerando relatório para {session.id}...[/dim]")
+        report = report_gen.generate(session, objection_bank, agent=agent)
 
         html = report_gen.render_html(report)
         Path("reports").mkdir(exist_ok=True)

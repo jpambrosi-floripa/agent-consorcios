@@ -41,7 +41,7 @@ class ReportGenerator:
     def __init__(self):
         self.evaluator = Evaluator()
 
-    def generate(self, session: Session, objection_bank=None) -> Report:
+    def generate(self, session: Session, objection_bank=None, agent=None) -> Report:
         total = len(session.objections_used)
         overcome_count = sum(1 for obj in session.objections_used if obj.status == "contornada")
         not_overcome_count = total - overcome_count
@@ -53,12 +53,16 @@ class ReportGenerator:
         behavioral_patterns = {}
         priority_improvements = []
         spin_recommendations = []
+        llm_analysis = {}
 
         if objection_bank:
             objection_analyses = self._analyze_objection_turns(session, objection_bank)
             behavioral_patterns = self._detect_behavioral_patterns(session, objection_bank)
             priority_improvements = self._build_priority_improvements(session, objection_bank)
             spin_recommendations = self._build_spin_recommendations(session, objection_bank)
+
+        if agent and objection_bank:
+            llm_analysis = self._generate_llm_analysis(session, objection_bank, agent, score, overcome_count, total) or {}
 
         return Report(
             session_id=session.id,
@@ -74,7 +78,35 @@ class ReportGenerator:
             behavioral_patterns=behavioral_patterns,
             priority_improvements=priority_improvements,
             spin_recommendations=spin_recommendations,
+            llm_analysis=llm_analysis,
         )
+
+    def _generate_llm_analysis(self, session: Session, objection_bank, agent, score: float, overcome: int, total: int) -> dict:
+        msgs_by_objection: Dict[str, list] = {}
+        for msg in session.messages:
+            if msg.objection_id:
+                msgs_by_objection.setdefault(msg.objection_id, []).append(msg)
+
+        turns = []
+        for usage in session.objections_used:
+            obj = objection_bank.get_by_id(usage.id)
+            msgs = msgs_by_objection.get(usage.id, [])
+            vendor_msg = next((m for m in msgs if m.role == "vendor"), None)
+            turns.append({
+                "objection": obj.objection if obj else usage.id,
+                "category": obj.category if obj else "unknown",
+                "vendor_response": vendor_msg.content if vendor_msg else "(sem resposta)",
+                "overcome": usage.status == "contornada",
+            })
+
+        session_data = {
+            "profile": session.profile,
+            "score": score,
+            "overcome": overcome,
+            "total": total,
+            "turns": turns,
+        }
+        return agent.generate_report_analysis(session_data)
 
     def calculate_score(self, overcome: int, total: int) -> float:
         if total == 0:
@@ -317,6 +349,32 @@ class ReportGenerator:
               {"".join(items)}
             </div>"""
 
+        def llm_sections_html() -> str:
+            llm = report.llm_analysis
+            if not llm:
+                return patterns_html() + improvements_html() + spin_html()
+
+            def text_card(title: str, key: str) -> str:
+                content = llm.get(key, "")
+                if not content:
+                    return ""
+                paragraphs = "".join(f"<p>{p.strip()}</p>" for p in str(content).split("\n") if p.strip())
+                return f'<div class="card"><h2>{title}</h2><div class="llm-text">{paragraphs}</div></div>'
+
+            topics = llm.get("study_topics", [])
+            study_html = ""
+            if topics:
+                items = "".join(f'<div class="improvement-item"><span class="improvement-num">{i+1}</span><span>{t}</span></div>' for i, t in enumerate(topics))
+                study_html = f'<div class="card"><h2>O que Estudar</h2>{items}</div>'
+
+            return (
+                text_card("Análise por Objeção", "objection_analysis")
+                + text_card("Diagnóstico de Conhecimento de Produto", "product_knowledge")
+                + text_card("Padrões de Comportamento", "behavior_patterns")
+                + study_html
+                + spin_html()
+            )
+
         now = datetime.now().strftime("%d/%m/%Y %H:%M")
 
         return f"""<!DOCTYPE html>
@@ -363,6 +421,8 @@ class ReportGenerator:
   .spin-item summary {{ padding: 14px 16px; cursor: pointer; list-style: none; background: #f8fafc; font-size: 0.9rem; }}
   .spin-item summary::-webkit-details-marker {{ display: none; }}
   .spin-body {{ padding: 14px 16px; font-size: 0.88rem; line-height: 1.6; border-top: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 6px; }}
+  .llm-text p {{ font-size: 0.9rem; line-height: 1.7; color: #334155; margin-bottom: 10px; }}
+  .llm-text p:last-child {{ margin-bottom: 0; }}
   .footer {{ text-align: center; font-size: 0.75rem; color: #94a3b8; margin-top: 32px; padding-bottom: 24px; }}
 </style>
 </head>
@@ -386,11 +446,9 @@ class ReportGenerator:
     <div class="stat-card"><div class="stat-value" style="color:#ef4444">{report.not_overcome}</div><div class="stat-label">Não contornadas</div></div>
   </div>
 
-  <div class="card"><h2>Análise por Objeção</h2>{objection_cards_html()}</div>
+  <div class="card"><h2>Conversa — Objeção por Objeção</h2>{objection_cards_html()}</div>
 
-  {patterns_html()}
-  {improvements_html()}
-  {spin_html()}
+  {llm_sections_html()}
 
   <div class="footer">Gerado por Agente Consórcio &nbsp;·&nbsp; {report.session_id}</div>
 </div>
