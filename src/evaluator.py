@@ -61,11 +61,17 @@ class Evaluator:
                 return "Tente: " + " / ".join(hints[:2])
             return f"Aborde diretamente a preocupação do cliente sobre '{objection.objection.lower()}'."
 
-    def evaluate_response(self, vendor_response: str, objection: Objection) -> Dict:
+    def evaluate_response(
+        self,
+        vendor_response: str,
+        objection: Objection,
+        conversation_history=None,
+        agent=None,
+    ) -> Dict:
         response_lower = vendor_response.lower()
 
         if any(word in response_lower for word in self.EVASION_KEYWORDS):
-            hint = self._build_hint(False, [], objection)
+            hint = self._get_hint(False, [], objection, vendor_response, conversation_history, agent)
             return {
                 "overcome": False,
                 "reason": "vendor_evaded",
@@ -75,15 +81,11 @@ class Evaluator:
 
         objection_id = objection.id
         keywords = self.OVERCOME_KEYWORDS.get(objection_id, [])
-
-        found_keywords = sum(
-            1 for keyword in keywords
-            if keyword in response_lower
-        )
+        found_keywords = sum(1 for kw in keywords if kw in response_lower)
 
         overcome = found_keywords >= 1
         techniques = self.detect_techniques(vendor_response)
-        hint = self._build_hint(overcome, techniques, objection)
+        hint = self._get_hint(overcome, techniques, objection, vendor_response, conversation_history, agent)
 
         return {
             "overcome": overcome,
@@ -91,6 +93,16 @@ class Evaluator:
             "techniques": techniques,
             "hint": hint,
         }
+
+    def _get_hint(self, overcome: bool, techniques: list, objection: Objection, vendor_response: str, conversation_history, agent) -> str:
+        if agent and conversation_history is not None:
+            try:
+                llm_hint = agent.evaluate_vendor_response(vendor_response, objection, conversation_history)
+                if llm_hint:
+                    return llm_hint
+            except Exception:
+                pass
+        return self._build_hint(overcome, techniques, objection)
 
     def detect_techniques(self, response: str) -> List[str]:
         response_lower = response.lower()
